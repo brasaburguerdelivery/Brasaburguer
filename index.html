@@ -113,6 +113,11 @@
             position: relative;
         }
         
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
         .logo img {
             height: 70px;
             width: auto;
@@ -121,6 +126,16 @@
 
         .logo img:hover {
             opacity: 0.8;
+        }
+        
+        .logo-text {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 10px;
         }
         
         /* Navegação Principal */
@@ -173,98 +188,9 @@
             overflow: hidden;
         }
 
-        /* Responsivo */
-        @media (max-width: 992px) {
-            .about-content,
-            .app-container,
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .app-image {
-                order: -1;
-                text-align: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: block;
-            }
-            
-            #main-nav {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 80%;
-                height: 100vh;
-                background-color: #ba172a;
-                padding: 100px 30px 30px;
-                transition: left 0.3s ease;
-                z-index: 999;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            }
-            
-            #main-nav.active {
-                left: 0;
-            }
-            
-            #main-nav ul {
-                flex-direction: column;
-            }
-            
-            #main-nav ul li {
-                margin: 15px 0;
-            }
-            
-            #main-nav ul li a {
-                font-size: 1.2rem;
-                padding: 10px 0;
-                display: block;
-            }
-
-            .logo img {
-                height: 60px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .app-buttons {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 150px 0 80px;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-
-            .logo img {
-                height: 50px;
-            }       
-            
-            .logo {
-            display: flex;          /* Alinha imagem e texto lado a lado */
-            align-items: center;   /* Centraliza verticalmente */
-            }
-        
-            /* Hero Section */
-            .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner.png');
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('imagens/banner.png');
             background-size: cover;
             background-position: center;
             color: white;
@@ -632,7 +558,7 @@
         }
         
         .subscribe-form button:hover {
-            background-color: #ba172a;
+            background-color: #9e1424;
         }
         
         .copyright {
@@ -658,34 +584,45 @@
         }
         
         @media (max-width: 768px) {
-            nav {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background-color: white;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                transition: left 0.3s;
-            }
-            
-            nav.active {
-                left: 0;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                padding: 30px;
-            }
-            
-            nav ul li {
-                margin: 0 0 20px 0;
-            }
-            
             .mobile-menu {
                 display: block;
             }
             
+            #main-nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #ba172a;
+                padding: 100px 30px 30px;
+                transition: left 0.3s ease;
+                z-index: 999;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            #main-nav.active {
+                left: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            #main-nav ul li a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+                display: block;
+            }
+
+            .logo img {
+                height: 60px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -711,18 +648,11 @@
             .section {
                 padding: 60px 0;
             }
-        }
 
-        /* Estilo para o texto do logo */
-            .logo-text {
-                color: white;          /* Cor branca */
-                font-family: 'Montserrat', sans-serif;
-                font-weight: 700;      /* Negrito */
-                font-size: 1.8rem;     /* Tamanho grande (equivalente a h2/h3) */
-                text-transform: uppercase; /* Opcional: transforma em MAIÚSCULAS */
-                letter-spacing: 1px;   /* Espaçamento entre letras */
-                margin-left: 10px;     /* Distância da imagem */
-                
+            .logo img {
+                height: 50px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -730,7 +660,7 @@
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
-                <img src="images/logo.png" alt="Brasa Burguer">
+                <img src="imagens/logo.png" alt="Brasa Burguer">
                 <span class="logo-text">Brasa Burguer</span>
             </a>
             
@@ -753,7 +683,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1>.</h1>
+            <h1>Brasa Burguer</h1>
             <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
             <a href="#menu" class="btn">Ver Cardápio</a>
         </div>
@@ -817,14 +747,14 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2 class="section-title">Sobre Nós</h2>
-                    <p>A Delícia Express nasceu da paixão por comida de qualidade e do desejo de levar até você os melhores sabores com conveniência e rapidez.</p>
+                    <p>A Brasa Burguer nasceu da paixão por comida de qualidade e do desejo de levar até você os melhores sabores com conveniência e rapidez.</p>
                     <p>Nossa equipe de chefs prepara cada item do cardápio com ingredientes frescos e selecionados, garantindo sabor e qualidade em cada pedido.</p>
                     <p>Com um sistema de delivery eficiente, garantimos que sua comida chegue quentinha e no tempo prometido.</p>
                     <a href="#" class="btn">Nossa História</a>
                 </div>
                 
                 <div class="about-image">
-                    <img src="imagens/sobre-nos.jpg" alt="Sobre a Delícia Express">
+                    <img src="imagens/sobre-nos.jpg" alt="Sobre a Brasa Burguer">
                 </div>
             </div>
         </div>
@@ -872,7 +802,7 @@
             <div class="app-container">
                 <div class="app-text">
                     <h2>Baixe nosso app</h2>
-                    <p>Peça seus lanches favoritos com ainda mais facilidade. Com o app Delícia Express você pode:</p>
+                    <p>Peça seus lanches favoritos com ainda mais facilidade. Com o app Brasa Burguer você pode:</p>
                     <ul style="margin-bottom: 20px; padding-left: 20px;">
                         <li>• Acompanhar seu pedido em tempo real</li>
                         <li>• Salvar seus pedidos favoritos</li>
@@ -900,7 +830,7 @@
                 </div>
                 
                 <div class="app-image">
-                    <img src="imagens/app-screen.png" alt="App Delícia Express" style="max-height: 500px;">
+                    <img src="imagens/app-screen.png" alt="App Brasa Burguer" style="max-height: 500px;">
                 </div>
             </div>
         </div>
@@ -915,7 +845,7 @@
                 <!-- Depoimento 1 -->
                 <div class="testimonial">
                     <div class="testimonial-text">
-                        "Os hambúrgueres da Delícia Express são incríveis! Sempre bem preparados e chegam quentinhos. Meu delivery favorito!"
+                        "Os hambúrgueres da Brasa Burguer são incríveis! Sempre bem preparados e chegam quentinhos. Meu delivery favorito!"
                     </div>
                     <div class="testimonial-author">
                         <img src="imagens/cliente1.jpg" alt="Ana Silva">
@@ -991,7 +921,7 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div>
-                            <p>contato@deliciaexpress.com.br</p>
+                            <p>contato@brasaburguer.com.br</p>
                         </div>
                     </div>
                     
@@ -1025,7 +955,7 @@
         <div class="container">
             <div class="footer-container">
                 <div class="footer-about">
-                    <a href="#" class="footer-logo">Delícia<span>Express</span></a>
+                    <a href="#" class="footer-logo">Brasa<span>Burguer</span></a>
                     <p>Levando sabor e praticidade para sua casa desde 2015. A melhor experiência em delivery de comida.</p>
                     
                     <div class="social-links">
