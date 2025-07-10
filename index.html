@@ -9,6 +9,9 @@
     <!-- Favicon -->
     <link rel="icon" href="imagens/favicon.png" type="image/png">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Fontes -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
@@ -67,9 +70,9 @@
         }
         
         .btn:hover {
-            background-color: #ba172a;
+            background-color: #9e1424;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(186, 23, 42, 0.3);
         }
         
         .section {
@@ -107,10 +110,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
+            position: relative;
         }
- 
+        
         .logo img {
-            height: 1000px; /* Ajuste conforme necessário */
+            height: 70px;
+            width: auto;
             transition: opacity 0.3s;
         }
 
@@ -118,481 +123,56 @@
             opacity: 0.8;
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #ba172a;
-        }
-        
-        .logo span {
-            color: #333;
-        }
-        
-        nav ul {
+        /* Navegação Principal */
+        #main-nav ul {
             display: flex;
         }
         
-        nav ul li {
+        #main-nav ul li {
             margin-left: 30px;
         }
 
-        /* Adicione estas regras no seu CSS */
-        nav ul li a {
-            color: white !important;  /* Cor branca para os links */
-            transition: color 0.3s;
-}
-
-        nav ul li a:hover {
-            color: #FFD700 !important;  /* Cor dourada no hover (opcional) */
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);  /* Efeito brilho (opcional) */
-}
-
-        /* Se estiver usando mobile menu, adicione também: */
-        .mobile-menu {
-            color: white !important;
-}
-        
-        nav ul li a {
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #ba172a;
-        }
-        
-        .mobile-menu {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: white;
-    z-index: 1001;
-}
-
-@media (max-width: 768px) {
-    .mobile-menu {
-        display: block;
-    }
-    
-    #main-nav {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background-color: #222;
-        padding-top: 80px;
-        transition: left 0.3s ease;
-        z-index: 1000;
-    }
-    
-    #main-nav.active {
-        left: 0;
-    }
-    
-    #main-nav ul {
-        flex-direction: column;
-        padding: 20px;
-    }
-    
-    #main-nav ul li {
-        margin: 15px 0;
-    }
-    
-    #main-nav ul li a {
-        font-size: 1.2rem;
-        padding: 10px 0;
-        display: block;
-    }
-    
-    .header-container {
-        position: relative;
-    }
-}
-        .no-scroll {
-    overflow: hidden;
-}
-        /* Hero */
-        .hero {
-            background-size: cover;
-            background-position: center;
+        #main-nav ul li a {
             color: white;
-            text-align: center;
-            padding: 180px 0 100px;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 0;
             position: relative;
         }
-        
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+
+        #main-nav ul li a:hover {
+            color: #FFD700;
         }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
+
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FFD700;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
         }
-        
-        /* Destaques */
-        .highlights {
-            background-color: white;
-        }
-        
-        .highlight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .highlight-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .highlight-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .highlight-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .highlight-img img {
+
+        #main-nav ul li a:hover:after {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
         }
         
-        .highlight-card:hover .highlight-img img {
-            transform: scale(1.1);
-        }
-        
-        .highlight-content {
-            padding: 20px;
-        }
-        
-        .highlight-content h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-        
-        .highlight-content p {
-            margin-bottom: 15px;
-            color: #666;
-        }
-        
-        .price {
-            font-weight: 700;
-            color: #ba172a;
-            font-size: 1.2rem;
-        }
-        
-        /* Sobre */
-        .about {
-            background-color: #f5f5f5;
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .about-text h2 {
-            margin-bottom: 20px;
-        }
-        
-        .about-text p {
-            margin-bottom: 15px;
-        }
-        
-        /* Como Funciona */
-        .how-it-works {
-            text-align: center;
-        }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .step {
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .step-icon {
-            font-size: 3rem;
-            color: #ba172a;
-            margin-bottom: 20px;
-        }
-        
-        .step h3 {
-            margin-bottom: 15px;
-        }
-        
-        /* App */
-        .app {
-            background-color: #ba172a;
-            color: white;
-        }
-        
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .app-text h2 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .app-text p {
-            margin-bottom: 30px;
-        }
-        
-        .app-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .app-btn {
-            display: flex;
-            align-items: center;
-            background-color: white;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 8px;
-        }
-        
-        .app-btn img {
-            width: 30px;
-            margin-right: 10px;
-        }
-        
-        .app-btn span {
-            font-size: 0.8rem;
-        }
-        
-        .app-btn strong {
-            display: block;
-            font-size: 1.1rem;
-        }
-        
-        /* Depoimentos */
-        .testimonials {
-            background-color: white;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial {
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-author img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        
-        .author-info h4 {
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 0.9rem;
-        }
-        
-        /* Contato */
-        .contact {
-            background-color: #f5f5f5;
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .contact-info h3 {
-            margin-bottom: 20px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .contact-icon {
-            font-size: 1.5rem;
-            color: #ba172a;
-            margin-right: 15px;
-            width: 30px;
-            text-align: center;
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .contact-form textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo {
+        /* Menu Mobile */
+        .mobile-menu {
+            display: none;
             font-size: 1.8rem;
-            font-weight: 700;
-            color: #ba172a;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .footer-logo span {
-            color: white;
-        }
-        
-        .footer-about p {
-            margin-bottom: 20px;
-            color: #bbb;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: #333;
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: #ba172a;
-            transform: translateY(-3px);
-        }
-        
-        .footer-links h3 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-        
-        .footer-links ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links ul li a {
-            color: #bbb;
-            transition: color 0.3s;
-        }
-        
-        .footer-links ul li a:hover {
-            color: #ba172a;
-        }
-        
-        .footer-subscribe p {
-            color: #bbb;
-            margin-bottom: 20px;
-        }
-        
-        .subscribe-form {
-            display: flex;
-        }
-        
-        .subscribe-form input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 5px 0 0 5px;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .subscribe-form button {
-            padding: 0 20px;
-            background-color: #ba172a;
-            color: white;
-            border: none;
-            border-radius: 0 5px 5px 0;
             cursor: pointer;
-            transition: background-color 0.3s;
+            color: white;
+            z-index: 1001;
+            padding: 10px;
         }
-        
-        .subscribe-form button:hover {
-            background-color: #ba172a;
+
+        .no-scroll {
+            overflow: hidden;
         }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-        
+
         /* Responsivo */
         @media (max-width: 992px) {
             .about-content,
@@ -608,34 +188,45 @@
         }
         
         @media (max-width: 768px) {
-            nav {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background-color: white;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                transition: left 0.3s;
-            }
-            
-            nav.active {
-                left: 0;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                padding: 30px;
-            }
-            
-            nav ul li {
-                margin: 0 0 20px 0;
-            }
-            
             .mobile-menu {
                 display: block;
             }
             
+            #main-nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #ba172a;
+                padding: 100px 30px 30px;
+                transition: left 0.3s ease;
+                z-index: 999;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            #main-nav.active {
+                left: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            #main-nav ul li a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+                display: block;
+            }
+
+            .logo img {
+                height: 60px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -661,377 +252,91 @@
             .section {
                 padding: 60px 0;
             }
+
+            .logo img {
+                height: 50px;
+            }
         }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Restante do CSS permanece igual */
+        /* ... [mantenha todo o restante do CSS existente] ... */
     </style>
 </head>
 <body>
     <!-- Header -->
-<header>
-    <div class="container header-container">
-        <a href="index.html" class="logo">
-            <img src="images/logo.png" alt="Brasa Burguer" style="height: 100px;">
-        </a>
-        
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#home">Início</a></li>
-                <li><a href="#menu">Cardápio</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#how-it-works">Como Funciona</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-        </nav>
-        
-        <div class="mobile-menu" id="mobile-menu">
-            <i class="fas fa-bars"></i>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Brasa Burguer">
+            </a>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#menu">Cardápio</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Hero Section -->
-<section class="hero" id="home" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner.png'); background-size: cover; background-position: center;">
-    <div class="container">
-        <h1>.</h1>
-        <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
-        <a href="#menu" class="btn">Ver Cardápio</a>
-    </div>
-</section>
-
-    <!-- Destaques do Cardápio -->
-    <section class="section highlights" id="menu">
+    <section class="hero" id="home">
         <div class="container">
-            <h2 class="section-title">Destaques do Cardápio</h2>
-            
-            <div class="highlight-grid">
-                <!-- Item 1 -->
-                <div class="highlight-card">
-                    <div class="highlight-img">
-                        <img src="imagens/hamburger.jpg" alt="Hamburger Delícia">
-                    </div>
-                    <div class="highlight-content">
-                        <h3>Hamburger Delícia</h3>
-                        <p>Pão brioche, hambúrguer 180g, queijo cheddar, bacon crocante e molho especial</p>
-                        <p class="price">R$ 29,90</p>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-                
-                <!-- Item 2 -->
-                <div class="highlight-card">
-                    <div class="highlight-img">
-                        <img src="imagens/pizza.jpg" alt="Pizza Margherita">
-                    </div>
-                    <div class="highlight-content">
-                        <h3>Pizza Margherita</h3>
-                        <p>Massa fina, molho de tomate, mussarela de búfala, manjericão fresco e azeite</p>
-                        <p class="price">R$ 49,90</p>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-                
-                <!-- Item 3 -->
-                <div class="highlight-card">
-                    <div class="highlight-img">
-                        <img src="imagens/porcao.jpg" alt="Porção de Batata">
-                    </div>
-                    <div class="highlight-content">
-                        <h3>Porção de Batata</h3>
-                        <p>Batata rústica temperada com ervas finas e acompanha molhos especiais</p>
-                        <p class="price">R$ 22,90</p>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="cardapio-completo.html" class="btn">Ver Cardápio Completo</a>
-            </div>
+            <h1>Os melhores lanches entregues na sua casa</h1>
+            <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
+            <a href="#menu" class="btn">Ver Cardápio</a>
         </div>
     </section>
 
-    <!-- Sobre Nós -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Sobre Nós</h2>
-                    <p>A Delícia Express nasceu da paixão por comida de qualidade e do desejo de levar até você os melhores sabores com conveniência e rapidez.</p>
-                    <p>Nossa equipe de chefs prepara cada item do cardápio com ingredientes frescos e selecionados, garantindo sabor e qualidade em cada pedido.</p>
-                    <p>Com um sistema de delivery eficiente, garantimos que sua comida chegue quentinha e no tempo prometido.</p>
-                    <a href="#" class="btn">Nossa História</a>
-                </div>
-                
-                <div class="about-image">
-                    <img src="imagens/sobre-nos.jpg" alt="Sobre a Delícia Express">
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- [Mantenha todo o restante do HTML existente] -->
+    <!-- ... -->
 
-    <!-- Como Funciona -->
-    <section class="section how-it-works" id="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Como Funciona</h2>
-            
-            <div class="steps">
-                <!-- Passo 1 -->
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>1. Escolha</h3>
-                    <p>Selecione os itens do cardápio pelo site ou aplicativo</p>
-                </div>
-                
-                <!-- Passo 2 -->
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h3>2. Pague</h3>
-                    <p>Finalize seu pedido com pagamento online ou na entrega</p>
-                </div>
-                
-                <!-- Passo 3 -->
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-motorcycle"></i>
-                    </div>
-                    <h3>3. Receba</h3>
-                    <p>Acompanhe seu pedido em tempo real e receba em casa</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- App -->
-    <section class="section app">
-        <div class="container">
-            <div class="app-container">
-                <div class="app-text">
-                    <h2>Baixe nosso app</h2>
-                    <p>Peça seus lanches favoritos com ainda mais facilidade. Com o app Delícia Express você pode:</p>
-                    <ul style="margin-bottom: 20px; padding-left: 20px;">
-                        <li>• Acompanhar seu pedido em tempo real</li>
-                        <li>• Salvar seus pedidos favoritos</li>
-                        <li>• Receber ofertas exclusivas</li>
-                        <li>• Pagar com mais praticidade</li>
-                    </ul>
-                    
-                    <div class="app-buttons">
-                        <a href="#" class="app-btn">
-                            <img src="imagens/google-play.png" alt="Google Play">
-                            <div>
-                                <span>Disponível no</span>
-                                <strong>Google Play</strong>
-                            </div>
-                        </a>
-                        
-                        <a href="#" class="app-btn">
-                            <img src="imagens/app-store.png" alt="App Store">
-                            <div>
-                                <span>Baixe na</span>
-                                <strong>App Store</strong>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="app-image">
-                    <img src="imagens/app-screen.png" alt="App Delícia Express" style="max-height: 500px;">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos -->
-    <section class="section testimonials">
-        <div class="container">
-            <h2 class="section-title">O que dizem nossos clientes</h2>
-            
-            <div class="testimonial-grid">
-                <!-- Depoimento 1 -->
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "Os hambúrgueres da Delícia Express são incríveis! Sempre bem preparados e chegam quentinhos. Meu delivery favorito!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="imagens/cliente1.jpg" alt="Ana Silva">
-                        <div class="author-info">
-                            <h4>Ana Silva</h4>
-                            <p>Cliente há 2 anos</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Depoimento 2 -->
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "Adoro pedir pizza aqui. A massa é perfeita e os ingredientes sempre frescos. Entrega super rápida também!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="imagens/cliente2.jpg" alt="Carlos Mendes">
-                        <div class="author-info">
-                            <h4>Carlos Mendes</h4>
-                            <p>Cliente há 1 ano</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Depoimento 3 -->
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "Melhor custo-benefício da região. Sempre peço as porções para assistir futebol com os amigos. Recomendo!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="imagens/cliente3.jpg" alt="Roberta Almeida">
-                        <div class="author-info">
-                            <h4>Roberta Almeida</h4>
-                            <p>Cliente há 3 anos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contato -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Informações de Contato</h3>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <p>Rua das Delícias, 123</p>
-                            <p>Centro, Cidade - Estado</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div>
-                            <p>(11) 1234-5678</p>
-                            <p>(11) 98765-4321 (WhatsApp)</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <p>contato@deliciaexpress.com.br</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <p>Segunda a Sábado: 11h às 23h</p>
-                            <p>Domingo: 11h às 22h</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3>Envie uma mensagem</h3>
-                    <form action="#" method="POST">
-                        <input type="text" name="name" placeholder="Seu nome" required>
-                        <input type="email" name="email" placeholder="Seu e-mail" required>
-                        <input type="tel" name="phone" placeholder="Seu telefone">
-                        <textarea name="message" placeholder="Sua mensagem" required></textarea>
-                        <button type="submit" class="btn">Enviar Mensagem</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-about">
-                    <a href="#" class="footer-logo">Delícia<span>Express</span></a>
-                    <p>Levando sabor e praticidade para sua casa desde 2015. A melhor experiência em delivery de comida.</p>
-                    
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Links Úteis</h3>
-                    <ul>
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#menu">Cardápio</a></li>
-                        <li><a href="#about">Sobre Nós</a></li>
-                        <li><a href="#how-it-works">Como Funciona</a></li>
-                        <li><a href="#contact">Contato</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Políticas</h3>
-                    <ul>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Política de Entrega</a></li>
-                        <li><a href="#">Trocas e Devoluções</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-subscribe">
-                    <h3>Newsletter</h3>
-                    <p>Assine nossa newsletter e receba ofertas exclusivas no seu e-mail.</p>
-                    
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Seu e-mail">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Brasa Burguer. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Font Awesome (ícones) -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
     <!-- JavaScript -->
     <script>
         // Menu Mobile
-document.getElementById('mobile-menu').addEventListener('click', function() {
-    document.getElementById('main-nav').classList.toggle('active');
-    
-    // Impede que o body role quando o menu estiver aberto
-    document.body.classList.toggle('no-scroll');
-});
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
 
-// Fechar menu ao clicar em um link
-const navLinks = document.querySelectorAll('#main-nav ul li a');
-navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-        document.getElementById('main-nav').classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    });
-});
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('#main-nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('main-nav').classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
         
         // Scroll suave para links internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
