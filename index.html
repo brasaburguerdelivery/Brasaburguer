@@ -1,172 +1,987 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lanchonete Delivery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #fff8f0;
-    }
-
-    header {
-      background-color: #ff4d00;
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      background-image: url('https://images.unsplash.com/photo-1606788075761-0fda91b3f4e5');
-      background-size: cover;
-      background-position: center;
-      height: 400px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 42px;
-      background-color: rgba(0,0,0,0.5);
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .menu {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .menu h3 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 30px;
-    }
-
-    .items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .item {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 250px;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .item img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-
-    .item h4 {
-      margin: 10px 0 5px;
-    }
-
-    .item p {
-      margin: 0 0 15px;
-      color: #555;
-    }
-
-    footer {
-      background-color: #333;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      padding: 15px;
-      font-size: 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      text-decoration: none;
-      z-index: 999;
-    }
-
-    @media (max-width: 600px) {
-      .items {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delícia Express - Lanchonete Delivery</title>
+    <meta name="description" content="Peça os melhores lanches e refeições com delivery rápido. Hamburgers, pizzas, porções e muito mais!">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="imagens/favicon.png" type="image/png">
+    
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <style>
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #222;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #FF6B00;
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #E05D00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #FF6B00;
+            margin: 15px auto;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF6B00;
+        }
+        
+        .logo span {
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #FF6B00;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('imagens/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Destaques */
+        .highlights {
+            background-color: white;
+        }
+        
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .highlight-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .highlight-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .highlight-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .highlight-card:hover .highlight-img img {
+            transform: scale(1.1);
+        }
+        
+        .highlight-content {
+            padding: 20px;
+        }
+        
+        .highlight-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .highlight-content p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .price {
+            font-weight: 700;
+            color: #FF6B00;
+            font-size: 1.2rem;
+        }
+        
+        /* Sobre */
+        .about {
+            background-color: #f5f5f5;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+        }
+        
+        /* Como Funciona */
+        .how-it-works {
+            text-align: center;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: #FF6B00;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* App */
+        .app {
+            background-color: #FF6B00;
+            color: white;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .app-text h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .app-text p {
+            margin-bottom: 30px;
+        }
+        
+        .app-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .app-btn {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        
+        .app-btn img {
+            width: 30px;
+            margin-right: 10px;
+        }
+        
+        .app-btn span {
+            font-size: 0.8rem;
+        }
+        
+        .app-btn strong {
+            display: block;
+            font-size: 1.1rem;
+        }
+        
+        /* Depoimentos */
+        .testimonials {
+            background-color: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Contato */
+        .contact {
+            background-color: #f5f5f5;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #FF6B00;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF6B00;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: white;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #FF6B00;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #FF6B00;
+        }
+        
+        .footer-subscribe p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+        }
+        
+        .subscribe-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .subscribe-form button {
+            padding: 0 20px;
+            background-color: #FF6B00;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .subscribe-form button:hover {
+            background-color: #E05D00;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 992px) {
+            .about-content,
+            .app-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .app-image {
+                order: -1;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+            }
+            
+            nav ul li {
+                margin: 0 0 20px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .app-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Delícia<span>Express</span></a>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#menu">Cardápio</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
 
-  <header>
-    <h1>Lanchonete Delivery</h1>
-    <nav>
-      <a href="#menu">Cardápio</a>
-      <a href="#contato">Contato</a>
-    </nav>
-  </header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Os melhores lanches entregues na sua casa</h1>
+            <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
+            <a href="#menu" class="btn">Ver Cardápio</a>
+        </div>
+    </section>
 
-  <section class="hero">
-    <h2>O melhor lanche da cidade, entregue na sua porta!</h2>
-  </section>
+    <!-- Destaques do Cardápio -->
+    <section class="section highlights" id="menu">
+        <div class="container">
+            <h2 class="section-title">Destaques do Cardápio</h2>
+            
+            <div class="highlight-grid">
+                <!-- Item 1 -->
+                <div class="highlight-card">
+                    <div class="highlight-img">
+                        <img src="imagens/hamburger.jpg" alt="Hamburger Delícia">
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Hamburger Delícia</h3>
+                        <p>Pão brioche, hambúrguer 180g, queijo cheddar, bacon crocante e molho especial</p>
+                        <p class="price">R$ 29,90</p>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="highlight-card">
+                    <div class="highlight-img">
+                        <img src="imagens/pizza.jpg" alt="Pizza Margherita">
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Pizza Margherita</h3>
+                        <p>Massa fina, molho de tomate, mussarela de búfala, manjericão fresco e azeite</p>
+                        <p class="price">R$ 49,90</p>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="highlight-card">
+                    <div class="highlight-img">
+                        <img src="imagens/porcao.jpg" alt="Porção de Batata">
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Porção de Batata</h3>
+                        <p>Batata rústica temperada com ervas finas e acompanha molhos especiais</p>
+                        <p class="price">R$ 22,90</p>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="cardapio-completo.html" class="btn">Ver Cardápio Completo</a>
+            </div>
+        </div>
+    </section>
 
-  <section class="menu" id="menu">
-    <h3>Nosso Cardápio</h3>
-    <div class="items">
-      <div class="item">
-        <img src="https://images.unsplash.com/photo-1601924582971-6c1c9c6f60b2" alt="X-Burguer" />
-        <h4>X-Burguer</h4>
-        <p>Pão, carne, queijo e molho especial</p>
-      </div>
-      <div class="item">
-        <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Batata Frita" />
-        <h4>Batata Frita</h4>
-        <p>Porção crocante e deliciosa</p>
-      </div>
-      <div class="item">
-        <img src="https://images.unsplash.com/photo-1576618148400-0e189b9f1f15" alt="Refrigerante" />
-        <h4>Refrigerante</h4>
-        <p>Lata 350ml diversos sabores</p>
-      </div>
-    </div>
-  </section>
+    <!-- Sobre Nós -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Sobre Nós</h2>
+                    <p>A Delícia Express nasceu da paixão por comida de qualidade e do desejo de levar até você os melhores sabores com conveniência e rapidez.</p>
+                    <p>Nossa equipe de chefs prepara cada item do cardápio com ingredientes frescos e selecionados, garantindo sabor e qualidade em cada pedido.</p>
+                    <p>Com um sistema de delivery eficiente, garantimos que sua comida chegue quentinha e no tempo prometido.</p>
+                    <a href="#" class="btn">Nossa História</a>
+                </div>
+                
+                <div class="about-image">
+                    <img src="imagens/sobre-nos.jpg" alt="Sobre a Delícia Express">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer id="contato">
-    <p>📍 Rua das Lanches, 123 - Centro, Cidade</p>
-    <p>📞 (11) 99999-9999</p>
-    <p>⏰ Atendimento: 18h às 23h</p>
-  </footer>
+    <!-- Como Funciona -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Como Funciona</h2>
+            
+            <div class="steps">
+                <!-- Passo 1 -->
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>1. Escolha</h3>
+                    <p>Selecione os itens do cardápio pelo site ou aplicativo</p>
+                </div>
+                
+                <!-- Passo 2 -->
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>2. Pague</h3>
+                    <p>Finalize seu pedido com pagamento online ou na entrega</p>
+                </div>
+                
+                <!-- Passo 3 -->
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <h3>3. Receba</h3>
+                    <p>Acompanhe seu pedido em tempo real e receba em casa</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <a href="https://wa.me/5511999999999" target="_blank" class="whatsapp-float">💬</a>
+    <!-- App -->
+    <section class="section app">
+        <div class="container">
+            <div class="app-container">
+                <div class="app-text">
+                    <h2>Baixe nosso app</h2>
+                    <p>Peça seus lanches favoritos com ainda mais facilidade. Com o app Delícia Express você pode:</p>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li>• Acompanhar seu pedido em tempo real</li>
+                        <li>• Salvar seus pedidos favoritos</li>
+                        <li>• Receber ofertas exclusivas</li>
+                        <li>• Pagar com mais praticidade</li>
+                    </ul>
+                    
+                    <div class="app-buttons">
+                        <a href="#" class="app-btn">
+                            <img src="imagens/google-play.png" alt="Google Play">
+                            <div>
+                                <span>Disponível no</span>
+                                <strong>Google Play</strong>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="app-btn">
+                            <img src="imagens/app-store.png" alt="App Store">
+                            <div>
+                                <span>Baixe na</span>
+                                <strong>App Store</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="app-image">
+                    <img src="imagens/app-screen.png" alt="App Delícia Express" style="max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Depoimentos -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">O que dizem nossos clientes</h2>
+            
+            <div class="testimonial-grid">
+                <!-- Depoimento 1 -->
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Os hambúrgueres da Delícia Express são incríveis! Sempre bem preparados e chegam quentinhos. Meu delivery favorito!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="imagens/cliente1.jpg" alt="Ana Silva">
+                        <div class="author-info">
+                            <h4>Ana Silva</h4>
+                            <p>Cliente há 2 anos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Depoimento 2 -->
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Adoro pedir pizza aqui. A massa é perfeita e os ingredientes sempre frescos. Entrega super rápida também!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="imagens/cliente2.jpg" alt="Carlos Mendes">
+                        <div class="author-info">
+                            <h4>Carlos Mendes</h4>
+                            <p>Cliente há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Depoimento 3 -->
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Melhor custo-benefício da região. Sempre peço as porções para assistir futebol com os amigos. Recomendo!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="imagens/cliente3.jpg" alt="Roberta Almeida">
+                        <div class="author-info">
+                            <h4>Roberta Almeida</h4>
+                            <p>Cliente há 3 anos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p>Rua das Delícias, 123</p>
+                            <p>Centro, Cidade - Estado</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <p>(11) 1234-5678</p>
+                            <p>(11) 98765-4321 (WhatsApp)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p>contato@deliciaexpress.com.br</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <p>Segunda a Sábado: 11h às 23h</p>
+                            <p>Domingo: 11h às 22h</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envie uma mensagem</h3>
+                    <form action="#" method="POST">
+                        <input type="text" name="name" placeholder="Seu nome" required>
+                        <input type="email" name="email" placeholder="Seu e-mail" required>
+                        <input type="tel" name="phone" placeholder="Seu telefone">
+                        <textarea name="message" placeholder="Sua mensagem" required></textarea>
+                        <button type="submit" class="btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">Delícia<span>Express</span></a>
+                    <p>Levando sabor e praticidade para sua casa desde 2015. A melhor experiência em delivery de comida.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#menu">Cardápio</a></li>
+                        <li><a href="#about">Sobre Nós</a></li>
+                        <li><a href="#how-it-works">Como Funciona</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Políticas</h3>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-subscribe">
+                    <h3>Newsletter</h3>
+                    <p>Assine nossa newsletter e receba ofertas exclusivas no seu e-mail.</p>
+                    
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Delícia Express. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome (ícones) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('main-nav').classList.remove('active');
+            });
+        });
+        
+        // Scroll suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Efeito de scroll no header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
 </body>
 </html>
