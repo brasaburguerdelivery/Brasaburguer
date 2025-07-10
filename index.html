@@ -162,11 +162,56 @@
         }
         
         .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+    }
+    
+    #main-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: #222;
+        padding-top: 80px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+    
+    #main-nav.active {
+        left: 0;
+    }
+    
+    #main-nav ul {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    #main-nav ul li {
+        margin: 15px 0;
+    }
+    
+    #main-nav ul li a {
+        font-size: 1.2rem;
+        padding: 10px 0;
+        display: block;
+    }
+    
+    .header-container {
+        position: relative;
+    }
+}
+        .no-scroll {
+    overflow: hidden;
+}
         /* Hero */
         .hero {
             background-size: cover;
@@ -972,17 +1017,21 @@
     <!-- JavaScript -->
     <script>
         // Menu Mobile
-        document.getElementById('mobile-menu').addEventListener('click', function() {
-            document.getElementById('main-nav').classList.toggle('active');
-        });
-        
-        // Fechar menu ao clicar em um link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('main-nav').classList.remove('active');
-            });
-        });
+document.getElementById('mobile-menu').addEventListener('click', function() {
+    document.getElementById('main-nav').classList.toggle('active');
+    
+    // Impede que o body role quando o menu estiver aberto
+    document.body.classList.toggle('no-scroll');
+});
+
+// Fechar menu ao clicar em um link
+const navLinks = document.querySelectorAll('#main-nav ul li a');
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        document.getElementById('main-nav').classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
+});
         
         // Scroll suave para links internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
