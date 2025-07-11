@@ -761,35 +761,31 @@
         </div>
     </header>
 
-    <!-- Carrinho de Compras (adicionar este código em ambas páginas) -->
-<div class="cart-container" id="cartContainer">
-    <div class="cart-header">
-        <h3>Seu Carrinho</h3>
-        <span class="close-cart" id="closeCart">&times;</span>
+    <!-- Carrinho de Compras -->
+    <div class="cart-container" id="cartContainer">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <span class="close-cart" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+        </div>
+        <div class="cart-total">
+            Total: <span id="cartTotal">R$ 0,00</span>
+        </div>
+        <div class="cart-actions">
+            <button class="btn cart-btn" id="checkoutBtn">Finalizar Pedido</button>
+            <button class="btn cart-btn" style="background: #666;">Continuar Comprando</button>
+        </div>
     </div>
-    <div class="cart-items" id="cartItems">
-        <!-- Itens serão adicionados dinamicamente -->
-    </div>
-    <div class="cart-total">
-        Total: <span id="cartTotal">R$ 0,00</span>
-    </div>
-    <div class="cart-actions">
-        <button class="btn cart-btn" id="checkoutBtn">Finalizar Pedido</button>
-        <button class="btn cart-btn" style="background: #666;">Continuar Comprando</button>
-    </div>
-</div>
 
-<!-- Carrinho Flutuante -->
-<div class="cart-float" id="cartFloat">
-    <i class="fas fa-shopping-cart"></i>
-    <span class="cart-badge" id="cartBadge">0</span>
-</div>
+    <!-- Carrinho Flutuante -->
+    <div class="cart-float" id="cartFloat">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
 
-<!-- Modal de Pagamento -->
-<div class="payment-modal" id="paymentModal">
-    <div class="payment-content">
-        
-        <!-- Conteúdo do modal de pagamento -->
+    <!-- Modal de Pagamento -->
     <div class="payment-modal" id="paymentModal">
         <div class="payment-content">
             <span class="close-modal" id="closeModal">&times;</span>
@@ -1272,261 +1268,250 @@
             }
         });
 
-        
-// ===== [SISTEMA DE CARRINHO UNIFICADO] ===== //
-// Configuração inicial
-const cartElements = {
-    container: document.getElementById('cartContainer'),
-    items: document.getElementById('cartItems'),
-    total: document.getElementById('cartTotal'),
-    badge: document.getElementById('cartBadge'),
-    float: document.getElementById('cartFloat'),
-    closeBtn: document.getElementById('closeCart'),
-    checkoutBtn: document.getElementById('checkoutBtn'),
-    paymentModal: document.getElementById('paymentModal'),
-    closeModal: document.getElementById('closeModal'),
-    pixAmount: document.getElementById('pixAmount'),
-    confirmPix: document.getElementById('confirmPix'),
-    confirmCredit: document.getElementById('confirmCredit'),
-    cardParcels: document.getElementById('cardParcels')
-};
+        // Sistema de Carrinho de Compras
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartContainer = document.getElementById('cartContainer');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartFloat = document.getElementById('cartFloat');
+        const closeCart = document.getElementById('closeCart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const paymentModal = document.getElementById('paymentModal');
+        const closeModal = document.getElementById('closeModal');
+        const pixAmount = document.getElementById('pixAmount');
+        const confirmPix = document.getElementById('confirmPix');
+        const confirmCredit = document.getElementById('confirmCredit');
+        const cardParcels = document.getElementById('cardParcels');
 
-// Carrinho com namespace específico para evitar conflitos
-let cart = JSON.parse(localStorage.getItem('brasaburguer_cart_v2')) || [];
+        // Atualizar carrinho ao carregar a página
+        updateCart();
 
-// Funções principais
-function initCartSystem() {
-    updateCartUI();
-    setupEventListeners();
-    if (cart.length > 0) showCart();
-}
-
-function setupEventListeners() {
-    // Botão flutuante
-    cartElements.float?.addEventListener('click', () => {
-        cart.length > 0 ? showCart() : alert('Seu carrinho está vazio!');
-    });
-    
-    // Fechar carrinho
-    cartElements.closeBtn?.addEventListener('click', hideCart);
-    
-    // Finalizar pedido
-    cartElements.checkoutBtn?.addEventListener('click', () => {
+        // Mostrar carrinho se não estiver vazio
         if (cart.length > 0) {
-            showPaymentModal();
+            showCart();
         }
-    });
-    
-    // Fechar modal
-    cartElements.closeModal?.addEventListener('click', hidePaymentModal);
-    
-    // Pagamento com PIX
-    cartElements.confirmPix?.addEventListener('click', confirmPixOrder);
-    
-    // Pagamento com cartão
-    cartElements.confirmCredit?.addEventListener('click', confirmCreditOrder);
-    
-    // Métodos de pagamento
-    document.querySelectorAll('.payment-method').forEach(method => {
-        method.addEventListener('click', () => {
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
-            method.classList.add('active');
-            
-            const methodType = method.getAttribute('data-method');
-            document.querySelectorAll('.payment-details').forEach(detail => {
-                detail.classList.remove('active');
+
+        // Botões "Adicionar ao Carrinho"
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseFloat(this.getAttribute('data-price'));
+                
+                addToCart(id, name, price);
             });
-            document.getElementById(`${methodType}Details`)?.classList.add('active');
         });
-    });
-    
-    // Botões "Adicionar ao Carrinho" (dinâmicos e estáticos)
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-            const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
-            const id = button.getAttribute('data-id');
-            const name = button.getAttribute('data-name');
-            const price = parseFloat(button.getAttribute('data-price'));
-            const image = button.getAttribute('data-image') || '';
+
+        // Adicionar item ao carrinho
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
             
-            addToCart(id, name, price, image);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCart();
+            saveCartToLocalStorage();
         }
-        
-        // Delegation para botões dentro do carrinho
-        if (e.target.closest('.cart-item')) {
-            const itemElement = e.target.closest('.cart-item');
-            const id = itemElement.querySelector('[data-id]')?.getAttribute('data-id');
+
+        // Atualizar carrinho
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
             
-            if (e.target.classList.contains('decrease')) {
-                decreaseQuantity(id);
-            } else if (e.target.classList.contains('increase')) {
-                increaseQuantity(id);
-            } else if (e.target.classList.contains('fa-trash') || e.target.classList.contains('cart-item-remove')) {
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>R$ ${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="decrease" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase" data-id="${item.id}">+</button>
+                    </div>
+                    <div class="cart-item-remove" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = `R$ ${total.toFixed(2)}`;
+            cartBadge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            pixAmount.textContent = `R$ ${(total * 0.95).toFixed(2)}`; // 5% de desconto no PIX
+            
+            // Atualizar opções de parcelamento
+            cardParcels.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                const parcelValue = total / i;
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${i}x de R$ ${parcelValue.toFixed(2)} ${i > 1 ? 'sem juros' : ''}`;
+                cardParcels.appendChild(option);
+            }
+            
+            // Adicionar eventos para os novos botões
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    decreaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    increaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.cart-item-remove').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    removeFromCart(id);
+                });
+            });
+        }
+
+        // Aumentar quantidade
+        function increaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity++;
+                updateCart();
+                saveCartToLocalStorage();
+            }
+        }
+
+        // Diminuir quantidade
+        function decreaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+                updateCart();
+                saveCartToLocalStorage();
+            } else if (item && item.quantity === 1) {
                 removeFromCart(id);
             }
         }
-    });
-}
 
-// Operações do carrinho
-function addToCart(id, name, price, image = '') {
-    const existingItem = cart.find(item => item.id === id);
-    
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            id,
-            name,
-            price,
-            quantity: 1,
-            image
-        });
-    }
-    
-    updateCartUI();
-    showCart();
-    saveCart();
-}
-
-function updateCartUI() {
-    if (!cartElements.items) return;
-    
-    cartElements.items.innerHTML = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item';
-        itemElement.innerHTML = `
-            <div class="cart-item-info">
-                <h4>${item.name}</h4>
-                <p>R$ ${item.price.toFixed(2)}</p>
-            </div>
-            <div class="cart-item-quantity">
-                <button class="decrease" data-id="${item.id}">-</button>
-                <span>${item.quantity}</span>
-                <button class="increase" data-id="${item.id}">+</button>
-            </div>
-            <div class="cart-item-remove" data-id="${item.id}">
-                <i class="fas fa-trash"></i>
-            </div>
-        `;
-        cartElements.items.appendChild(itemElement);
-    });
-    
-    if (cartElements.total) cartElements.total.textContent = `R$ ${total.toFixed(2)}`;
-    if (cartElements.badge) cartElements.badge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-    if (cartElements.pixAmount) cartElements.pixAmount.textContent = `R$ ${(total * 0.95).toFixed(2)}`;
-    
-    updateParcelOptions(total);
-}
-
-function updateParcelOptions(total) {
-    if (!cartElements.cardParcels) return;
-    
-    cartElements.cardParcels.innerHTML = '';
-    for (let i = 1; i <= 12; i++) {
-        const parcelValue = total / i;
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = `${i}x de R$ ${parcelValue.toFixed(2)} ${i > 1 ? 'sem juros' : ''}`;
-        cartElements.cardParcels.appendChild(option);
-    }
-}
-
-function increaseQuantity(id) {
-    const item = cart.find(item => item.id === id);
-    if (item) {
-        item.quantity++;
-        updateCartUI();
-        saveCart();
-    }
-}
-
-function decreaseQuantity(id) {
-    const item = cart.find(item => item.id === id);
-    if (item) {
-        if (item.quantity > 1) {
-            item.quantity--;
-        } else {
+        // Remover item
+        function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
+            updateCart();
+            saveCartToLocalStorage();
+            
+            if (cart.length === 0) {
+                hideCart();
+            }
         }
-        updateCartUI();
-        saveCart();
-        if (cart.length === 0) hideCart();
-    }
-}
 
-function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    updateCartUI();
-    saveCart();
-    if (cart.length === 0) hideCart();
-}
+        // Mostrar carrinho
+        function showCart() {
+            cartContainer.style.display = 'block';
+        }
 
-// Controle de visibilidade
-function showCart() {
-    if (cartElements.container) cartElements.container.style.display = 'block';
-}
+        // Esconder carrinho
+        function hideCart() {
+            cartContainer.style.display = 'none';
+        }
 
-function hideCart() {
-    if (cartElements.container) cartElements.container.style.display = 'none';
-}
+        // Carrinho flutuante
+        cartFloat.addEventListener('click', function() {
+            if (cart.length > 0) {
+                showCart();
+            } else {
+                alert('Seu carrinho está vazio!');
+            }
+        });
 
-function showPaymentModal() {
-    if (cartElements.paymentModal) cartElements.paymentModal.style.display = 'flex';
-}
+        // Fechar carrinho
+        closeCart.addEventListener('click', hideCart);
 
-function hidePaymentModal() {
-    if (cartElements.paymentModal) cartElements.paymentModal.style.display = 'none';
-}
+        // Finalizar compra
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length > 0) {
+                paymentModal.style.display = 'flex';
+            }
+        });
 
-// Finalização de pedido
-function confirmPixOrder() {
-    alert('Pedido confirmado via PIX! Seu pedido está sendo preparado.');
-    clearCart();
-}
+        // Fechar modal
+        closeModal.addEventListener('click', function() {
+            paymentModal.style.display = 'none';
+        });
 
-function confirmCreditOrder() {
-    const cardNumber = document.getElementById('cardNumber')?.value;
-    const cardName = document.getElementById('cardName')?.value;
-    const cardExpiry = document.getElementById('cardExpiry')?.value;
-    const cardCvv = document.getElementById('cardCvv')?.value;
-    
-    if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
-        alert('Por favor, preencha todos os campos do cartão.');
-        return;
-    }
-    
-    alert('Pagamento com cartão aprovado! Seu pedido está sendo preparado.');
-    clearCart();
-}
+        // Selecionar método de pagamento
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.payment-details').forEach(detail => {
+                    detail.classList.remove('active');
+                });
+                
+                const methodType = this.getAttribute('data-method');
+                document.getElementById(`${methodType}Details`).classList.add('active');
+            });
+        });
 
-function clearCart() {
-    cart = [];
-    updateCartUI();
-    hideCart();
-    hidePaymentModal();
-    saveCart();
-}
+        // Confirmar PIX
+        confirmPix.addEventListener('click', function() {
+            alert('Pedido confirmado! Seu pedido está sendo preparado e chegará em breve.');
+            cart = [];
+            updateCart();
+            hideCart();
+            paymentModal.style.display = 'none';
+            saveCartToLocalStorage();
+        });
 
-// Persistência
-function saveCart() {
-    localStorage.setItem('brasaburguer_cart_v2', JSON.stringify(cart));
-}
+        // Confirmar Cartão
+        confirmCredit.addEventListener('click', function() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardName = document.getElementById('cardName').value;
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCvv = document.getElementById('cardCvv').value;
+            
+            if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
+                alert('Por favor, preencha todos os campos do cartão.');
+                return;
+            }
+            
+            alert('Pagamento aprovado! Seu pedido está sendo preparado e chegará em breve.');
+            cart = [];
+            updateCart();
+            hideCart();
+            paymentModal.style.display = 'none';
+            saveCartToLocalStorage();
+        });
 
-// Inicialização quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', initCartSystem);
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(event) {
+            if (event.target === paymentModal) {
+                paymentModal.style.display = 'none';
+            }
+        });
 
-// Fechar modal ao clicar fora
-window.addEventListener('click', (event) => {
-    if (event.target === cartElements.paymentModal) {
-        hidePaymentModal();
-    }
-});
-// ===== [FIM DO SISTEMA DE CARRINHO] ===== //
-</script>
+        // Salvar carrinho no localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    </script>
 </body>
 </html>
