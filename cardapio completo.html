@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Completo - Brasa Burguer</title>
+    <meta name="description" content="Cardápio completo da Brasa Burguer - Hamburgers artesanais, combos e porções">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="imagens/favicon.png" type="image/png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <style>
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #222;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #ba172a;
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #9e1424;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(186, 23, 42, 0.3);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #ba172a;
+            margin: 15px auto;
+        }
+        
+        /* Header */
+        header {
+            background-color: #ba172a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100px;
+            width: auto;
+            transition: opacity 0.3s;
+        }
+
+        .logo img:hover {
+            opacity: 0.8;
+        }
+        
+        .logo-text {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 7px;
+        }
+        
+        /* Navegação Principal */
+        #main-nav ul {
+            display: flex;
+        }
+        
+        #main-nav ul li {
+            margin-left: 30px;
+        }
+
+        #main-nav ul li a {
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        #main-nav ul li a:hover {
+            color: #FFD700;
+        }
+
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FFD700;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        #main-nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* Menu Mobile */
+        .mobile-menu {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+            z-index: 1001;
+            padding: 10px;
+        }
+
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        /* Cardápio */
+        .menu-categories {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .menu-categories button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .menu-categories button.active,
+        .menu-categories button:hover {
+            color: #ba172a;
+            border-bottom: 3px solid #ba172a;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #ba172a;
+        }
+        
+        .menu-item-content p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .price {
+            font-weight: 700;
+            color: #ba172a;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .menu-section {
+            margin-bottom: 60px;
+        }
+        
+        .menu-section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ba172a;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .menu-section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #ba172a;
+            margin: 15px auto 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ba172a;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: white;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #ba172a;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #ba172a;
+        }
+        
+        .footer-subscribe p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+        }
+        
+        .subscribe-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .subscribe-form button {
+            padding: 0 20px;
+            background-color: #ba172a;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .subscribe-form button:hover {
+            background-color: #9e1424;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 992px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #ba172a;
+                padding: 100px 30px 30px;
+                transition: left 0.3s ease;
+                z-index: 999;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            #main-nav.active {
+                left: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            #main-nav ul li a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+                display: block;
+            }
+
+            .logo img {
+                height: 100px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .menu-categories {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .menu-categories button {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .logo img {
+                height: 100px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-item-img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Brasa Burguer">
+                <span class="logo-text">Brasa Burguer</span>
+            </a>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="#hamburgers">Cardápio</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner-cardapio.jpg'); background-size: cover; background-position: center; padding: 150px 0 80px; margin-top: 80px;">
+        <div class="container">
+            <h1>Cardápio Completo</h1>
+            <p>Conheça nossos hambúrgueres artesanais feitos com ingredientes selecionados</p>
+        </div>
+    </section>
+
+    <!-- Cardápio -->
+    <section class="section" id="hamburgers">
+        <div class="container">
+            <div class="menu-categories">
+                <button class="active" data-category="hamburgers">Hambúrgueres</button>
+                <button data-category="combos">Combos</button>
+                <button data-category="portions">Porções</button>
+                <button data-category="drinks">Bebidas</button>
+            </div>
+            
+            <div class="menu-section">
+                <h2 class="menu-section-title">Hambúrgueres Artesanais</h2>
+                
+                <div class="menu-grid">
+                    <!-- Hamburguer 1 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/1.png" alt="Brasa Clássico">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>1. Brasa Clássico</h3>
+                            <p>Pão brioche, hambúrguer 180g, queijo prato, alface, tomate, cebola roxa e molho especial</p>
+                            <span class="price">R$ 18,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 2 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/2.png" alt="Brasa Bacon">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>2. Brasa Bacon</h3>
+                            <p>Pão brioche, hambúrguer 180g, queijo cheddar, bacon crocante, cebola caramelizada e molho barbecue</p>
+                            <span class="price">R$ 22,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 3 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/3.png" alt="Brasa Picante">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>3. Brasa Picante</h3>
+                            <p>Pão brioche, hambúrguer 180g, queijo pepper jack, pimenta jalapeño, bacon e molho de pimenta artesanal</p>
+                            <span class="price">R$ 21,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 4 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/4.png" alt="Brasa Cheddar">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>4. Brasa Cheddar</h3>
+                            <p>Pão brioche, hambúrguer 180g, cheddar cremoso, cebola crispy e molho especial</p>
+                            <span class="price">R$ 20,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 5 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/5.png" alt="Brasa Vegano">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>5. Brasa Vegano</h3>
+                            <p>Pão integral, hambúrguer de grão-de-bico 150g, queijo vegano, alface, tomate, cebola roxa e molho de ervas</p>
+                            <span class="price">R$ 19,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 6 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/6.png" alt="Brasa Frango">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>6. Brasa Frango</h3>
+                            <p>Pão brioche, hambúrguer de frango 180g, queijo prato, alface, tomate e molho de iogurte</p>
+                            <span class="price">R$ 19,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 7 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/7.png" alt="Brasa Duplo">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>7. Brasa Duplo</h3>
+                            <p>Pão brioche, 2 hambúrgueres 180g, queijo cheddar, bacon, cebola caramelizada e molho especial</p>
+                            <span class="price">R$ 26,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 8 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/8.png" alt="Brasa Barbecue">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>8. Brasa Barbecue</h3>
+                            <p>Pão brioche, hambúrguer 180g, queijo cheddar, cebola crispy, bacon e molho barbecue artesanal</p>
+                            <span class="price">R$ 22,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hamburguer 9 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/9.png" alt="Brasa Supremo">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>9. Brasa Supremo</h3>
+                            <p>Pão brioche, hambúrguer 180g, queijo cheddar, bacon, ovo, alface, tomate, cebola roxa e molho especial</p>
+                            <span class="price">R$ 24,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section" id="combos">
+                <h2 class="menu-section-title">Combos Especiais</h2>
+                
+                <div class="menu-grid">
+                    <!-- Combo 1 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/combo-1.png" alt="Combo na Brasa">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Combo na Brasa</h3>
+                            <p>1 Brasa Clássico + Batata frita média + Refrigerante lata</p>
+                            <span class="price">R$ 32,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Combo 2 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/combo-2.png" alt="Combo Selvagem">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Combo Selvagem</h3>
+                            <p>1 Brasa Duplo + Batata frita grande + Refrigerante 600ml</p>
+                            <span class="price">R$ 39,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Combo 3 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/combo-3.png" alt="Combo Família">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Combo Família</h3>
+                            <p>2 Hamburgueres à escolha + Batata frita grande + 2 Refrigerantes 600ml</p>
+                            <span class="price">R$ 59,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section" id="portions">
+                <h2 class="menu-section-title">Porções</h2>
+                
+                <div class="menu-grid">
+                    <!-- Porção 1 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/porcao-1.png" alt="Batata Frita">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Batata Frita</h3>
+                            <p>Porção de batata frita crocante com cheddar e bacon (serve 2 pessoas)</p>
+                            <span class="price">R$ 18,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Porção 2 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/porcao-2.png" alt="Onion Rings">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Onion Rings</h3>
+                            <p>Anéis de cebola empanados e crocantes (serve 2 pessoas)</p>
+                            <span class="price">R$ 16,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Porção 3 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/porcao-3.png" alt="Isca de Frango">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Isca de Frango</h3>
+                            <p>Tiras de peito de frango empanadas e crocantes (serve 2 pessoas)</p>
+                            <span class="price">R$ 22,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section" id="drinks">
+                <h2 class="menu-section-title">Bebidas</h2>
+                
+                <div class="menu-grid">
+                    <!-- Bebida 1 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/bebida-1.png" alt="Refrigerantes">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Refrigerantes</h3>
+                            <p>Coca-Cola, Guaraná, Fanta, Sprite (lata 350ml ou garrafa 600ml)</p>
+                            <span class="price">Lata: R$ 6,90 | 600ml: R$ 10,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bebida 2 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/bebida-2.png" alt="Sucos Naturais">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Sucos Naturais</h3>
+                            <p>Laranja, Maracujá, Limão ou Abacaxi com Hortelã (500ml)</p>
+                            <span class="price">R$ 8,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bebida 3 -->
+                    <div class="menu-item">
+                        <div class="menu-item-img">
+                            <img src="images/bebida-3.png" alt="Água e Energéticos">
+                        </div>
+                        <div class="menu-item-content">
+                            <h3>Água e Energéticos</h3>
+                            <p>Água mineral 500ml, Red Bull ou Monster Energy (250ml)</p>
+                            <span class="price">Água: R$ 4,90 | Energéticos: R$ 12,90</span>
+                            <a href="#" class="btn">Pedir Agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="index.html" class="footer-logo">Brasa<span>Burguer</span></a>
+                    <p>Levando sabor e praticidade para sua casa desde 2015. A melhor experiência em delivery de comida.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="#hamburgers">Cardápio</a></li>
+                        <li><a href="index.html#about">Sobre Nós</a></li>
+                        <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Políticas</h3>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-subscribe">
+                    <h3>Newsletter</h3>
+                    <p>Assine nossa newsletter e receba ofertas exclusivas no seu e-mail.</p>
+                    
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Brasa Burguer. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome (ícones) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('#main-nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('main-nav').classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+        
+        // Scroll suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Filtro de categorias
+        const categoryButtons = document.querySelectorAll('.menu-categories button');
+        const menuSections = document.querySelectorAll('.menu-section');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get category to show
+                const category = this.getAttribute('data-category');
+                
+                // Show/hide sections
+                menuSections.forEach(section => {
+                    if (section.id === category || category === 'hamburgers') {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Efeito de scroll no header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
