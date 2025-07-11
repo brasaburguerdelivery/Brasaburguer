@@ -1039,7 +1039,7 @@
             <nav id="main-nav">
                 <ul>
                     <li><a href="#home">Início</a></li>
-                    <li><a href="#menu">Cardápio</a></li>
+                    <li><a href="cardapio.html">Cardápio</a></li>
                     <li><a href="#about">Sobre</a></li>
                     <li><a href="#how-it-works">Como Funciona</a></li>
                     <li><a href="#contact">Contato</a></li>
@@ -1156,7 +1156,7 @@
     <section class="hero" id="home">
         <div class="container">            
             <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
-            <a href="#menu" class="btn">Ver Cardápio</a>
+            <a href="cardapio.html" class="btn">Ver Cardápio</a>
         </div>
     </section>
 
@@ -1230,7 +1230,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <a href="cardapio-completo.html" class="btn">Ver Cardápio Completo</a>
+                <a href="cardapio.html" class="btn">Ver Cardápio Completo</a>
             </div>
         </div>
     </section>
@@ -1412,7 +1412,7 @@
                     <h3>Links Úteis</h3>
                     <ul>
                         <li><a href="#home">Início</a></li>
-                        <li><a href="#menu">Cardápio</a></li>
+                        <li><a href="cardapio.html">Cardápio</a></li>
                         <li><a href="#about">Sobre Nós</a></li>
                         <li><a href="#how-it-works">Como Funciona</a></li>
                         <li><a href="#contact">Contato</a></li>
@@ -1561,6 +1561,30 @@
         const confirmCredit = document.getElementById('confirmCredit');
         const cardParcels = document.getElementById('cardParcels');
 
+        // Sincronizar carrinho ao carregar a página
+        function syncCartOnPageLoad() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+                if (cart.length > 0) {
+                    cartBadge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+                }
+            }
+        }
+
+        // Sincronizar entre abas/páginas
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'cart') {
+                const updatedCart = JSON.parse(event.newValue);
+                cart = updatedCart;
+                updateCart();
+            }
+        });
+
+        // Inicializar carrinho
+        window.addEventListener('DOMContentLoaded', syncCartOnPageLoad);
+
         // Botões "Adicionar ao Carrinho"
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', function() {
@@ -1589,6 +1613,7 @@
             
             updateCart();
             showCart();
+            saveCartToLocalStorage();
         }
 
         // Atualizar carrinho
@@ -1663,6 +1688,7 @@
             if (item) {
                 item.quantity++;
                 updateCart();
+                saveCartToLocalStorage();
             }
         }
 
@@ -1672,6 +1698,7 @@
             if (item && item.quantity > 1) {
                 item.quantity--;
                 updateCart();
+                saveCartToLocalStorage();
             } else if (item && item.quantity === 1) {
                 removeFromCart(id);
             }
@@ -1681,6 +1708,7 @@
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
             updateCart();
+            saveCartToLocalStorage();
             
             if (cart.length === 0) {
                 hideCart();
@@ -1743,6 +1771,7 @@
             updateCart();
             hideCart();
             paymentModal.style.display = 'none';
+            saveCartToLocalStorage();
         });
 
         // Confirmar Cartão
@@ -1762,6 +1791,7 @@
             updateCart();
             hideCart();
             paymentModal.style.display = 'none';
+            saveCartToLocalStorage();
         });
 
         // Fechar modal ao clicar fora
@@ -1770,6 +1800,11 @@
                 paymentModal.style.display = 'none';
             }
         });
+
+        // Salvar carrinho no localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
     </script>
 </body>
 </html>

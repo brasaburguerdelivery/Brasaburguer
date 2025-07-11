@@ -1269,7 +1269,7 @@
         });
 
         // Sistema de Carrinho de Compras
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = [];
         const cartContainer = document.getElementById('cartContainer');
         const cartItems = document.getElementById('cartItems');
         const cartTotal = document.getElementById('cartTotal');
@@ -1283,6 +1283,30 @@
         const confirmPix = document.getElementById('confirmPix');
         const confirmCredit = document.getElementById('confirmCredit');
         const cardParcels = document.getElementById('cardParcels');
+
+        // Sincronizar carrinho ao carregar a página
+        function syncCartOnPageLoad() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+                if (cart.length > 0) {
+                    cartBadge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+                }
+            }
+        }
+
+        // Sincronizar entre abas/páginas
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'cart') {
+                const updatedCart = JSON.parse(event.newValue);
+                cart = updatedCart;
+                updateCart();
+            }
+        });
+
+        // Inicializar carrinho
+        window.addEventListener('DOMContentLoaded', syncCartOnPageLoad);
 
         // Atualizar carrinho ao carregar a página
         updateCart();
