@@ -17,7 +17,6 @@
     
     <!-- CSS -->
     <style>
-
         .online-status {
             display: flex;
             align-items: center;
@@ -47,19 +46,19 @@
         }
 
         @keyframes pulse {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
-    }
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
-    }
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-    }
-}
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
 
         /* Novo estilo para o status online */
         .online-status {
@@ -173,6 +172,48 @@
             height: 4px;
             background-color: #ba172a;
             margin: 15px auto;
+        }
+
+        /* Localização */
+        .location-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .location-btn {
+            background: #ba172a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .location-btn:hover {
+            background: #9e1424;
+            transform: translateY(-2px);
+        }
+        
+        .location-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .location-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ba172a;
         }
         
         /* Header */
@@ -764,8 +805,26 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
+            <h1>Os melhores hambúrgueres da região</h1>
             <p>Peça online e receba em minutos. Delivery rápido e sabor garantido!</p>
             <a href="#menu" class="btn">Ver Cardápio</a>
+        </div>
+    </section>
+
+    <!-- Localização -->
+    <section class="section">
+        <div class="location-container">
+            <h2>Encontre a loja mais próxima</h2>
+            <p>Clique no botão para verificar se há uma lanchonete perto de você</p>
+            
+            <button id="locationBtn" class="location-btn">
+                <i class="fas fa-map-marker-alt"></i> Verificar localização
+            </button>
+            
+            <div id="locationResult" class="location-result">
+                <p><i class="fas fa-store location-icon"></i> <span id="storeDistance"></span></p>
+                <p><i class="fas fa-city location-icon"></i> <span id="userCity"></span></p>
+            </div>
         </div>
     </section>
 
@@ -1085,6 +1144,57 @@
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
             }
         });
+
+        // Localização
+        document.getElementById('locationBtn').addEventListener('click', function() {
+            const resultDiv = document.getElementById('locationResult');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        // Simulação - na prática você compararia com coordenadas reais das lojas
+                        const distance = 3.5; // Distância fixa de exemplo (em km)
+                        
+                        // Obter nome da cidade usando API de geocodificação reversa
+                        getCityName(position.coords.latitude, position.coords.longitude)
+                            .then(city => {
+                                document.getElementById('storeDistance').textContent = 
+                                    `Há uma lanchonete Brasa Burguer a ${distance} km de você`;
+                                document.getElementById('userCity').textContent = 
+                                    `Sua cidade: ${city}`;
+                                resultDiv.style.display = 'block';
+                            })
+                            .catch(error => {
+                                document.getElementById('storeDistance').textContent = 
+                                    `Há uma lanchonete Brasa Burguer a ${distance} km de você`;
+                                document.getElementById('userCity').textContent = 
+                                    `Não foi possível identificar sua cidade`;
+                                resultDiv.style.display = 'block';
+                                console.error("Erro ao obter cidade:", error);
+                            });
+                    },
+                    function(error) {
+                        alert("Por favor, permita o acesso à sua localização para usar este recurso.");
+                        console.error("Erro na geolocalização:", error);
+                    }
+                );
+            } else {
+                alert("Seu navegador não suporta geolocalização.");
+            }
+        });
+
+        // Função para obter o nome da cidade usando geocodificação reversa
+        function getCityName(lat, lng) {
+            return fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    return data.address.city || 
+                           data.address.town || 
+                           data.address.village || 
+                           data.address.county ||
+                           "Local desconhecido";
+                });
+        }
     </script>
 </body>
 </html>
